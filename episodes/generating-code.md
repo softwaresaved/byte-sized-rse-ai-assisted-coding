@@ -1,6 +1,6 @@
 ---
-title: "Introduction to AI-assisted Coding"
-teaching: 15
+title: "Generating Code"
+teaching: 10
 exercises: 0
 ---
 
@@ -17,8 +17,7 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-::::::::::::::::::::::::::::::::::::: keypoints
+::::::::::::::::::::::::::::::::::::: keypoints 
 
 - FIXME
 

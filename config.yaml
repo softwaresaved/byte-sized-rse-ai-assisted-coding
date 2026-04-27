@@ -18,13 +18,13 @@ carpentry: 'incubator'
 carpentry_description: 'Byte-sized RSE'
 
 # Overall title for pages.
-title: 'Byte-sized RSE: Software Documentation with Mkdocs'
+title: 'Byte-sized RSE: AI-assisted Coding'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 2026-04-21
+created: 2026-04-27
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, RSE, research software, software documentation, mkdocs'
+keywords: 'software, RSE, research software, AI, LLM, agents, coding'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -40,7 +40,7 @@ source: 'https://github.com/carpentries-incubator/byte-sized-rse-software-docume
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'a.nenadic@software.ac.uk'
+contact: 's.crouch@software.ac.uk'
 
 # Navigation ------------------------------------------------
 
@@ -51,8 +51,8 @@ disable_sidebar_numbering: true
 episodes:
   - introduction.md
   - example-code.md
-  - analysing-code.md
-  - linter-advanced.md
+  - refactoring-code.md
+  - generating-code.md
 
 # Information for Learners
 learners:
