@@ -6,10 +6,16 @@ title: Setup
 
 ::: prereq
 
-- Shell with Git version control tool installed
+Skill prerequisites:
+
+- Understanding of Python to be able to read and follow code examples
+- Some basic experience of using Visual Studio Code
 - Ability to navigate filesystem and run commands from within a shell
+
+Software prerequisites:
+
+- Shell with Git version control tool installed
 - Python version 3.8 or above installed
-- Understanding of Python syntax to be able to read and follow code examples
 - Pip Python package installer
 - Visual Studio Code installed (ideally the latest version)
 
