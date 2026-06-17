@@ -90,7 +90,7 @@
 </div>
     </div>
   </div>
-  <hr></header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+</header><nav class="navbar navbar-expand-xl bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
       <span class="menu-title">Menu</span>
@@ -208,8 +208,7 @@
             </div>
 <!--/div.col -->
 
-            <hr>
-</div>
+          </div>
 <!--/div.mobile-row -->
 
           <div class="accordion accordion-flush" id="accordion-chapters-toggle">
@@ -340,7 +339,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction to AI-assisted Coding</a></p>
 <hr>
-<p>Last updated on 2026-04-27 |
+<p>Last updated on 2026-06-17 |
 
         <a href="https://github.com/carpentries-incubator/byte-sized-rse-software-documentation-mkdocs/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 15 minutes</p>
@@ -355,7 +354,17 @@
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>FIXME</li>
+<li>How can an AI coding assistant help development within an IDE?</li>
+<li>What are the mechanisms by which IDE AI assistants provide
+help?</li>
+<li>What risks arise when AI coding tools and autonomous agents are
+given increasing levels of autonomy?</li>
+<li>How can I use AI coding assistants responsibly?</li>
+<li>What are the main modes of AI-assisted software development, and how
+do they differ?</li>
+<li>What are the limitations of a free Copilot account?</li>
+<li>What is GitHub Copilot?</li>
+<li>Which AI models are available within Copilot?</li>
 </ul>
 </div>
 </div>
@@ -365,13 +374,621 @@
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>FIXME</li>
+<li>Summarize the primary functions and intended use cases of common AI
+coding assistants.</li>
+<li>Describe some common tasks undertaken by an IDE coding
+assistant.</li>
+<li>Describe a responsible approach to using IDE coding assistants in
+development.</li>
+<li>Describe how GitHub Copilot integrates with Visual Studio Code.</li>
+<li>Describe the lifecycle of a Copilot request and how it uses
+data.</li>
+<li>Describe the different built-in models and their specialisms and
+tradeoffs.</li>
+<li>List the limitations of the free pricing tier of GitHub
+Copilot.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
+<p>Generative AI has the potential to transform how researchers work
+with code, and with the integration of such capability within common
+IDEs, such as Visual Studio Code, provide the coding researcher with
+powerful tools to modify, expand and otherwise work with code. But this
+potential needs to be tempered with critical thinking and a healthy
+degree of skepticism.</p>
+<section><h2 class="section-heading" id="how-ai-coding-assistants-aid-software-development">How AI Coding Assistants Aid Software Development<a class="anchor" aria-label="anchor" href="#how-ai-coding-assistants-aid-software-development"></a>
+</h2>
+<hr class="half-width">
+<figure><img src="../fig/chris-reid-ieic5Tq8YMk-unsplash.jpg" alt="Photo of Python code within an IDE" class="figure mx-auto d-block"><div class="figcaption">Photo courtesy of Chris Reid on Unsplash</div>
+</figure><p>AI coding tools support a spectrum of development approaches, from
+simple code completion to highly autonomous software development. As
+autonomy increases, developers spend less time writing code and more
+time defining goals, reviewing outputs, managing risk, and assuring
+quality.</p>
+<p>Although AI capabilities are advancing rapidly, best practices for
+their use are still evolving. Until more mature guidance emerges,
+established software engineering practices such as requirements
+management, design review, testing, security review, and code review
+remain essential.</p>
+<p>Most organisations currently use AI primarily through autocomplete
+and conversational assistance, with task-agent workflows becoming
+increasingly common.</p>
+<div class="section level3">
+<h3 id="inline-autocomplete-assistance">1. Inline / Autocomplete Assistance<a class="anchor" aria-label="anchor" href="#inline-autocomplete-assistance"></a>
+</h3>
+<p>AI suggests code as the developer types, helping with boilerplate,
+repetitive patterns, simple functions, and documentation. The developer
+remains fully in control and reviews every suggestion.</p>
+</div>
+<div class="section level3">
+<h3 id="conversational-assistance">2. Conversational Assistance<a class="anchor" aria-label="anchor" href="#conversational-assistance"></a>
+</h3>
+<p>Developers interact with AI through natural language to ask
+questions, generate code, explain unfamiliar concepts, debug issues, or
+refactor software.</p>
+<p>Examples include ChatGPT, Claude Code, GitHub Copilot Chat, and
+Gemini Code Assist.</p>
+</div>
+<div class="section level3">
+<h3 id="agentic-coding">3. Agentic Coding<a class="anchor" aria-label="anchor" href="#agentic-coding"></a>
+</h3>
+<p>AI tools can perform semi-autonomous tasks by planning and executing
+a sequence of actions within a defined scope. Developers provide goals
+and review the results.</p>
+<p>Common uses include:</p>
+<ul>
+<li>Implementing features</li>
+<li>Updating tests</li>
+<li>Drafting documentation</li>
+<li>Refactoring code</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="role-based-agentic-workflow">4. Role-Based Agentic Workflow<a class="anchor" aria-label="anchor" href="#role-based-agentic-workflow"></a>
+</h3>
+<p>Multiple specialised AI agents collaborate on a task, taking on roles
+such as analyst, architect, developer, tester, or reviewer. This is an
+emerging approach which involves multiple specialised AI agents
+collaborating on different aspects of a development task.</p>
+<p>This encourages separation of development stages and structured
+review, but requires careful oversight to avoid propagating errors
+between stages.</p>
+</div>
+<div class="section level3">
+<h3 id="the-dark-factory">5. The “Dark Factory”<a class="anchor" aria-label="anchor" href="#the-dark-factory"></a>
+</h3>
+<p>Sometimes referred to as a “Dark Factory”, this aspirational model
+involves AI systems performing most development activities with minimal
+human intervention.</p>
+<p>This has the benefit of rapid development cycles and continuous
+operation with low manual effort, but comes at a greatly increased risk
+of reduced human understanding of systems, and a loss of engineering
+skills, not to mention an incorrect interpretation of requirements or
+other constraints (in particular those for security or compliance) may
+not be noticed until late in the cycle, if at all. Since the human
+element is greatly reduced, it also raises questions of accountability
+and governance.</p>
+</div>
+</section><section><h2 class="section-heading" id="a-cornucopia-of-models">A Cornucopia of Models<a class="anchor" aria-label="anchor" href="#a-cornucopia-of-models"></a>
+</h2>
+<hr class="half-width">
+<p>An every increasing number of LLM-based AI assistants are becoming
+available, including (at time of writing):</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>ChatGPT</strong> – A conversational large language model
+by OpenAI that can generate code, explain programming concepts, assist
+with debugging, and support data analysis workflows.</p></li>
+<li><p><strong>GitHub Copilot</strong> – AI-powered coding assistant
+integrated into code editors, suggesting code completions, functions,
+and boilerplate across multiple programming languages.</p></li>
+<li><p><strong>Google Gemini</strong> – Google’s AI platform for
+research and coding assistance, capable of generating code, providing
+explanations, and supporting data analysis and workflow tasks.</p></li>
+<li><p><strong>Claude</strong> – A conversational AI by Anthropic
+designed to assist with coding, writing, and research tasks, providing
+explanations, summaries, and code generation support.</p></li>
+<li><p><strong>Microsoft Copilot</strong> – Integrated into Microsoft
+tools like Word, Excel, and Visual Studio, this AI assistant helps with
+code generation, data analysis, and workflow automation.</p></li>
+</ol>
+<p>Within this training, we’ll be using GitHub Copilot with a selection
+of its integrated AI models (ChatGPT and Claude) within Visual Studio
+Code as the vehicles to illustrate the concepts and demonstrate how to
+use these tools.</p>
+</section><section><h2 class="section-heading" id="benefits-and-risks">Benefits and Risks<a class="anchor" aria-label="anchor" href="#benefits-and-risks"></a>
+</h2>
+<hr class="half-width">
+<p>AI coding assistants offer several key benefits to research software
+development. They can accelerate development by reducing time spent on
+routine coding tasks, allowing researchers to focus on domain-specific
+problems. Plus, for those new to a programming language, these tools
+help lower the learning curve and enable faster productivity. The
+suggestions and examples provided by AI assistants <em>may</em> also
+encourage better coding practices and improve overall code quality.
+Additionally, they make it easier to maintain clear and comprehensive
+documentation, supporting long-term code maintainability.</p>
+<p>However, they also introduce a number of significant risks:</p>
+<ul>
+<li>
+<strong>Correctness and Validation</strong> - generative systems
+optimize for likelihood, not correctness. AI-generated code can sound
+confident but be incomplete, incorrect, or insecure. Researchers remain
+fully responsible for validating outputs.</li>
+<li>
+<strong>Limited explanation</strong> - unlike a standalone AI like
+ChatGPT, IDE-integrated AI often provides suggestions without detailed
+reasoning. This can reduce researchers’ understanding of AI-generated
+code</li>
+<li>
+<strong>Potential over-reliance</strong> - it can be very tempting
+to accept AI code suggestions that appear to work, without fully
+understanding them, and this can lead to errors or misunderstandings
+about what your code does.</li>
+<li>
+<strong>Privacy and security risks</strong> - the AI may send code
+snippets to cloud services for processing. Sensitive data or unpublished
+research could be exposed if this is not carefully managed.</li>
+<li>
+<strong>Context and Edge Cases</strong> – AI assistants may miss
+domain-specific requirements, edge cases, or research-specific
+constraints that are critical for correctness.</li>
+<li>
+<strong>Code Quality</strong> - generated code may work but be
+inefficient, poorly structured, or violate best practices, degrading
+long-term maintainability.</li>
+</ul>
+<p>There are also a number of tangential non-coding risks we should
+consider. One of these is vendor lock-in: as the perceived value of a
+particular vendor’s AI tool increases, so does the risk of dependence on
+that particular vendor’s tool. This can make switching tools difficult
+and leaving users at greater risk of service price increases and at the
+mercy of that vendor’s product roadmap, which may not align with the
+goals of the user. Secondly, depending on the training data used
+(e.g. codebases, best practice articles, etc.), biases may be introduced
+that favour particular technical tools and approaches which are not
+optimal or even sensible choices for a project. Plus, even <a href="https://support.microsoft.com/en-gb/topic/transparency-note-for-microsoft-copilot-c1541cad-8bb4-410a-954c-07225892dbc2" class="external-link">Microsoft
+acknowledges</a> that:</p>
+<blockquote>
+<p><em>“The language, image, and audio models that underly the Copilot
+experience may include training data that can reflect societal biases,
+which in turn can potentially cause Copilot to behave in ways that are
+perceived as unfair, unreliable, or offensive.”</em></p>
+</blockquote>
+<p>These may include the reinforcing of negative stereotypes, over or
+under-representation of specific groups of people, even inappropriate or
+offensive content, and variable performance across different spoken
+languages.</p>
+<p>Research software produces results that inform publications, policy,
+and further research. Unlike commercial software where bugs typically
+cause inconvenience, errors in research code can invalidate findings,
+waste resources, introduce unwanted biases, and compromise scientific
+integrity. AI tools optimize for likelihood, not correctness, so again,
+as responsible researchers, we must scrutinise AI generative
+responses.</p>
+<div id="the-cautionary-tale-of-replits-use-of-ai" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="the-cautionary-tale-of-replits-use-of-ai" class="callout-inner">
+<h3 class="callout-title">The Cautionary Tale of Replit’s use of AI</h3>
+<div class="callout-content">
+<p>There are an increasing number of AI cautionary tales being reported
+in the media.</p>
+<p>A particularly disturbing event at Replit was <a href="https://cybernews.com/ai-news/replit-ai-vive-code-rogue/" class="external-link">reported
+in June 2025</a>. Replit is an AI-powered platform of integrated tools
+for developing and publishing software applications from the
+browser.</p>
+<p>According to the account, the AI coding assistant behaved
+unpredictably during development, allegedly wiping a database, altering
+code against explicit instructions, and fabricating thousands of fake
+users and test results. The AI repeatedly ignored safeguards, concealed
+bugs, and misrepresented unit-test outcomes, even after being told not
+to make changes or during an attempted code freeze—which the platform
+was said to be unable to enforce. The incident raised concerns about
+safety, reliability, and control, especially for non-technical users
+relying on AI-driven “vibe coding” tools.</p>
+<p>The conclusion drawn was that, despite Replit’s popularity and large
+user base, its AI tooling may not yet be suitable for production or
+commercial software, highlighting broader risks around trust,
+governance, and oversight in AI-assisted development.</p>
+</div>
+</div>
+</div>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div class="accordion-body">
+<p>For the next exercise, in the shared notes document have a section
+for participants to add in answers.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="class-discussion-what-are-your-ai-coding-fears" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="class-discussion-what-are-your-ai-coding-fears" class="callout-inner">
+<h3 class="callout-title">Class Discussion: What are your AI Coding
+Fears?</h3>
+<div class="callout-content">
+<p>3 mins.</p>
+<p>Two questions:</p>
+<ul>
+<li>How do you hope AI coding assistants will help your software
+development?</li>
+<li>Do you have any concerns with using AI coding assistants? e.g. what
+are you afraid could happen?</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>Some possible benefits:</p>
+<ul>
+<li>Speed up development</li>
+<li>Help with understanding codebases</li>
+<li>Assist with learning and implementing new technologies</li>
+<li>Rapid prototyping</li>
+<li>Real-time assistance when writing code in an editor</li>
+<li>Free up time for doing actual research</li>
+</ul>
+<p>Some possible concerns:</p>
+<ul>
+<li>Incorrect but plausible code</li>
+<li>Hallucinated APIs or behavior</li>
+<li>Hidden assumptions</li>
+<li>Over-trust of code / reduced code review</li>
+<li>Poor maintainability</li>
+<li>Loss of algorithmic understanding</li>
+<li>Reproducibility issues</li>
+<li>Mismatch with scientific methods</li>
+<li>Licensing/IP uncertainty</li>
+<li>Security and data leakage risks</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="a-key-risk-technical-debt">A Key Risk: Technical Debt<a class="anchor" aria-label="anchor" href="#a-key-risk-technical-debt"></a>
+</h2>
+<hr class="half-width">
+<p>When faced with a problem that you need to solve by writing code, it
+may be tempting to skip the design phase and dive straight into coding,
+particularly when we have AI-assistants able to generate code so
+comprehensively and rapidly, with such an array of features.</p>
+<p>Let’s examine this capability in the light of the risk it presents to
+the rigour and verifiability of our code.</p>
+<p>With software development in general, what happens if we do not
+follow the good software design and development best practices? It can
+lead to accumulated ‘technical debt’, which (according to <a href="https://en.wikipedia.org/wiki/Technical_debt" class="external-link">Wikipedia</a>), is
+the “cost of additional rework caused by choosing an easy (limited)
+solution now instead of using a better approach that would take longer”.
+The pressure to achieve project goals can sometimes lead to quick and
+easy solutions, (in our case, particularly such as using AI assisted
+tools), which make the software become more messy, more complex, and
+more difficult to understand and maintain.</p>
+<p>The extra effort required to make changes in the future is the
+interest paid on this (technical) debt. It is natural for software to
+accrue some technical debt, but it is important to pay off that debt
+during a maintenance phase - simplifying, clarifying the code, making it
+easier to understand - to keep these interest payments on making changes
+manageable.</p>
+<p>When using AI-generated solutions, the risk is that without
+sufficient understanding of what is generated, the extent of technical
+debt may accumulate very quickly, to the point where the understanding
+and maintenance of the codebase by a researcher (or a team) becomes
+intractable and unmanageable.</p>
+<div id="the-almost-right-phenomenon" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="the-almost-right-phenomenon" class="callout-inner">
+<h3 class="callout-title">The “Almost Right” Phenomenon</h3>
+<div class="callout-content">
+<p>The “almost right” phenomenon in AI tools, <a href="https://venturebeat.com/ai/stack-overflow-data-reveals-the-hidden-productivity-tax-of-almost-right-ai-code" class="external-link">as
+reported by VentureBeat in 2025</a>, refers to the tendency of AI
+systems - especially those based on large language models or generative
+AI - to produce plausibly right-but-incorrect outputs that increase
+technical debt.</p>
+<p>The <a href="https://survey.stackoverflow.co/2025/" class="external-link">Stack Overflow
+2025 Developer Survey</a> highlighted an interesting set of
+findings:</p>
+<ul>
+<li>Only 33% of developers trust AI accuracy in 2025, down from 43% in
+2024</li>
+<li>AI favourability dropped from 72% in 2024 to 60% in 2025</li>
+<li>Developers cite “AI solutions that are alsmost right, but not quite”
+as their top frustration</li>
+<li>45% say debugging AI-generated code takes more time than
+expected</li>
+</ul>
+<p>Remedial actions such as maintaining human expertise, a focus on AI
+literacy, and implementing staged AI adoption are suggested.</p>
+<blockquote>
+<p>“For enterprises looking to lead in AI-driven development, this data
+indicates competitive advantage will come not from AI adoption speed,
+but from developing superior capabilities in AI-human workflow
+integration and AI-generated code quality management.</p>
+</blockquote>
+<blockquote>
+<p>Organizations that solve the “almost right” problem, turning AI tools
+into reliable productivity multipliers rather than sources of technical
+debt,will gain significant advantages in development speed and code
+quality.”</p>
+</blockquote>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="the-immature-and-rapidly-evolving-landscape">The Immature and Rapidly Evolving Landscape<a class="anchor" aria-label="anchor" href="#the-immature-and-rapidly-evolving-landscape"></a>
+</h2>
+<hr class="half-width">
+<p>While AI coding assistants in IDEs present features that may appear
+advanced and polished, the field itself remains relatively immature and
+is evolving at a rapid pace.</p>
+<p>The Gartner Hype Cycle is a model that describes how technologies
+evolve through public perception and maturity over time. It’s useful for
+understanding that new technologies often experience a
+boom-bust-recovery cycle, and that early enthusiasm doesn’t always
+correlate with long-term success.</p>
+<figure><img src="../fig/Gartner_Hype_Cycle.png" alt="Labelled curve graph of the Gartner Hype Cycle, labelling each of the five stages" class="figure mx-auto d-block"><div class="figcaption">Gartner Hype Cycle. Courtesy of Wikipedia,
+CC-BY-SA 3.0</div>
+</figure><p>It has five phases:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Technology Trigger</strong> – a breakthrough or significant
+media attention launches the technology into public awareness, creating
+excitement and high expectations</li>
+<li>
+<strong>Peak of Inflated Expectations</strong> – hype reaches its
+peak as early adopters, vendors, and media promote the technology
+enthusiastically. Expectations often exceed what the technology can
+actually deliver</li>
+<li>
+<strong>Trough of Disillusionment</strong> – reality sets in. Early
+implementations often disappoint, projects fail, or the technology
+proves more difficult or limited than expected. Media coverage becomes
+negative, and interest drops sharply.</li>
+<li>
+<strong>Slope of Enlightenment</strong> – developers and
+organizations begin to understand the technology’s real capabilities and
+limitations. Realistic applications emerge, best practices develop, and
+the technology gradually gains practical adoption.</li>
+<li>
+<strong>Plateau of Productivity</strong> – the technology matures
+and becomes widely adopted for its genuine use cases. It integrates into
+standard workflows and delivers measurable value, though often more
+modest than initially hyped.</li>
+</ol>
+<p>The landscape of AI coding assistants is characterized by:</p>
+<ul>
+<li>
+<strong>Rapid feature development</strong> - new capabilities are
+continuously being added and refined by vendors competing in this
+space</li>
+<li>
+<strong>Unstable implementations</strong> - how features are
+implemented, displayed, and accessed changes frequently, sometimes
+between minor version updates</li>
+<li>
+<strong>Shifting vendor priorities</strong> - large technology
+companies regularly adjust their AI strategies For example, Microsoft
+has recently scaled back some of its ambitious AI goals for Visual
+Studio Code, which may affect the availability and priority of
+AI-assisted features in the editor</li>
+<li>
+<strong>Incomplete standardization</strong> - there is no
+industry-wide standard for how AI assistants should integrate with IDEs,
+leading to inconsistent user experiences across different tools</li>
+</ul>
+<p>This rapid evolution means that the tools and best practices applied
+to them can quickly become outdated. It is important to stay informed
+about changes to the tools you use and to develop a flexible approach
+that can adapt as these tools mature.</p>
+<div id="class-discussion-where-does-ai-coding-tools-fall-on-the-hype-curve" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="class-discussion-where-does-ai-coding-tools-fall-on-the-hype-curve" class="callout-inner">
+<h3 class="callout-title">Class Discussion: Where Does AI Coding Tools
+Fall on the Hype Curve?</h3>
+<div class="callout-content">
+<p>1 mins.</p>
+<p>In general, where do you think AI coding tools fall on this curve?
+Respond in the meeting chat with a number 1-5 corresponding to where you
+think they currently are.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>It’s particularly relevant to AI coding assistants, which at the time
+of writing (Q1 2026) are currently navigating the peak of inflated
+expectations phase.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="introduction-to-github-copilot">Introduction to GitHub Copilot<a class="anchor" aria-label="anchor" href="#introduction-to-github-copilot"></a>
+</h2>
+<hr class="half-width">
+<p>GitHub Copilot integrates directly into Visual Studio Code as an
+extension installable from within the IDE, providing access to:</p>
+<ul>
+<li>
+<strong>On-request explanations</strong> - allowing you to obtain
+responses to questions in a chat interface</li>
+<li>
+<strong>Real-time assistance as you continue to develop your
+code</strong> - where Copilot continuously analyzes the code you write,
+as well as comments and surrounding context, to offer intelligent
+suggestions which require approval.</li>
+<li>
+<strong>On-request direct code modification</strong> - by requesting
+specific changes, your code is modified directly by Copilot (again,
+requiring specific approval before it integrates the suggested
+changes)</li>
+</ul>
+<p>All of this is integrated into the VSCode editor, so you do not need
+to leave your development environment.</p>
+<div class="section level3">
+<h3 id="the-lifecycle-of-a-copilot-prompt">The Lifecycle of a Copilot Prompt<a class="anchor" aria-label="anchor" href="#the-lifecycle-of-a-copilot-prompt"></a>
+</h3>
+<p>So how does Copilot integrate with VSCode, and how does it handle
+data? Let’s look at how it creates a code suggestion as an example:</p>
+<figure><img src="../fig/copilot-prompt-lifecycle.png" alt="Lifecycle of a Copilot prompt" class="figure mx-auto d-block"><div class="figcaption">Lifecycle of a Copilot prompt</div>
+</figure><p>At a high level, the following steps are followed:</p>
+<p>Within the Copilot-enabled IDE:</p>
+<ol style="list-style-type: decimal">
+<li>Developer enters text into code editor, such as VSCode, gathering
+context from a number of sources (code before and after cursor, file
+name and type, other open editor tabs)</li>
+<li>The prompt is constructed from the amassed context and sent to the
+Copilot proxy</li>
+</ol>
+<p>Within the Copilot proxy (within the “Cloud”):</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Filters the requests, terminating those involving toxic language,
+unrelated code requests, and perceived hacking attempts. The prompt is
+sent to the GitHub Copilot LLM</li>
+</ol>
+<p>The Copilot LLM (also in the “Cloud”):</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Receives the request and formulates a code suggestion which is sent
+back to the proxy</li>
+</ol>
+<p>Back within the Copilot proxy:</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Receives the response, and tests code suggestions for code
+vulnerabilities, truncating responses that contain unique identifiers
+(such as email addresses, GitHub URLs, IP addresses, etc.), and filters
+out those matching known public code. The processed response is fed back
+to the Copilot client within the IDE</li>
+</ol>
+<p>Back within the Copilot-enabled IDE:</p>
+<ol start="6" style="list-style-type: decimal">
+<li>The Copilot extension receives the code suggestion which is
+presented to the user to accept or reject</li>
+</ol>
+<p>GitHub provides further detailed information about <a href="https://resources.github.com/learn/pathways/copilot/essentials/how-github-copilot-handles-data/" class="external-link">how
+GitHub Copilot handles data</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="different-models">Different Models<a class="anchor" aria-label="anchor" href="#different-models"></a>
+</h3>
+<p>GitHub Copilot’s free tier provides access to multiple large language
+models, each with different strengths and tradeoffs. The following table
+summarizes the models currently available at time of writing:</p>
+<table class="table">
+<colgroup>
+<col width="15%">
+<col width="20%">
+<col width="28%">
+<col width="15%">
+<col width="20%">
+</colgroup>
+<thead><tr>
+<th><strong>Model</strong></th>
+<th><strong>Provider</strong></th>
+<th><strong>Specialization</strong></th>
+<th><strong>Speed</strong></th>
+<th><strong>Best for</strong></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Claude Haiku</strong></td>
+<td>Anthropic</td>
+<td>Balanced, efficient reasoning</td>
+<td>Fast</td>
+<td>Quick code completions, lightweight tasks, local development</td>
+</tr>
+<tr>
+<td><strong>GPT-4.1</strong></td>
+<td>OpenAI</td>
+<td>Complex reasoning and analysis</td>
+<td>Moderate</td>
+<td>Detailed code reviews, architectural decisions, complex
+refactoring</td>
+</tr>
+<tr>
+<td><strong>GPT-5 Mini</strong></td>
+<td>OpenAI</td>
+<td>Lightweight version of GPT-5</td>
+<td>Faster</td>
+<td>Balance of capability and speed, most general-purpose tasks</td>
+</tr>
+</tbody>
+</table>
+<p>Each model can be selected based on your specific task requirements.
+For routine coding tasks, lighter models like Claude Haiku or GPT-5 Mini
+may be sufficient and faster, while more complex problems may benefit
+from the deeper reasoning of GPT-4.1.</p>
+<p>There are many <a href="https://docs.github.com/en/copilot/get-started/plans#models" class="external-link">other
+models available</a> for use within various priced priced tiers,
+including other models from OpenAI and Anthropic, as well as models from
+Google (i.e. Gemini). Some of these e.g. GPT-5-Codex have been further
+optimised for writing code and other software engineering tasks. You can
+also find a <a href="https://docs.github.com/en/copilot/reference/ai-models/model-comparison" class="external-link">comparison
+of these models</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="limitations-of-the-copilot-free-tier">Limitations of the Copilot Free Tier<a class="anchor" aria-label="anchor" href="#limitations-of-the-copilot-free-tier"></a>
+</h3>
+<p>There are two key quotas which are reset per month to be aware of
+(which we’ll look into during the practical elements of the course):</p>
+<ul>
+<li>
+<strong>Inline suggestions</strong> - 2000 completions per month,
+essentially where Copilot provides suggestions as you type</li>
+<li>
+<strong>Premium requests</strong> - 50 per month, where you use more
+advanced AI features, such as Copilot chat requests or advanced
+reasonsing models</li>
+</ul>
+</div>
+</section><section><h2 class="section-heading" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<hr class="half-width">
+<ul>
+<li><a href="https://zenodo.org/records/1183562" class="external-link">S.J. Hettrick et al, UK
+Research Software Survey 2014</a></li>
+<li><a href="https://github.com/softwaresaved/software_in_grants_GTR" class="external-link">S.J.
+Hettrick et al, An investigation of the funding invested into
+software-reliant research”</a></li>
+<li><a href="http://www.software.ac.uk/blog/2014-12-04-its-impossible-conduct-research-without-software-say-7-out-10-uk-researchers" class="external-link">S.J.
+Hettrick, It’s Impossible to Conduct Research Without Software, Say 7
+out of 10 UK Researchers</a></li>
+<li><a href="https://www.lse.ac.uk/DSI/AI/AI-Research/Introduction-to-Generative-AI-for-researchers?entryId=2319c173-7bdc-45d3-9a69-d12fd54340d7&amp;nodeId=e2e64854-5d30-44fa-a289-a5ef76104f3e" class="external-link">Introduction
+to Generative AI for Researchers</a></li>
+<li><a href="https://arxiv.org/abs/2512.19644" class="external-link">O’Brien, G., Parker, A.,
+Eisty, N., &amp; Carver, J. (2025). More code, less validation: Risk
+factors for over-reliance on AI coding tools among scientists.</a></li>
+<li><a href="https://oerc.ox.ac.uk/ai-centre/ai-guides/getting-started-with-ai-for-coding" class="external-link">Getting
+started with AI for Coding by Oxford AI Competency Centre</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gartner_hype_cycle" class="external-link">Wikipedia,
+Gartner Hype Cycle</a></li>
+</ul>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -380,13 +997,37 @@
 <div class="callout-inner">
 <div class="callout-content">
 <ul>
-<li>FIXME</li>
+<li>AI coding tools range from autocomplete to highly autonomous
+development.</li>
+<li>Higher AI autonomy requires greater human oversight and review.</li>
+<li>Established software engineering practices remain essential when
+using AI.</li>
+<li>AI can speed up development, learning, prototyping, and
+documentation.</li>
+<li>AI-generated code may be incorrect, insecure, or poorly
+designed.</li>
+<li>Developers remain responsible for validating all AI outputs.</li>
+<li>Over-reliance on AI can increase technical debt and reduce
+understanding.</li>
+<li>“Almost right” AI solutions often increase debugging and maintenance
+effort.</li>
+<li>AI tools are evolving rapidly, and best practices are still
+emerging.</li>
+<li>The Copilot free tier currently includes access to three AI models
+each with a different balance of speed and purpose.</li>
+<li>The Copilot free tier currently allows 2000 completions and 50
+premium requests per month.</li>
 </ul>
 </div>
 </div>
-</div></section><section id="aio-example-code"><p>Content from <a href="example-code.html">Example Code</a></p>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</section></section><section id="aio-example-code"><p>Content from <a href="example-code.html">Example Code</a></p>
 <hr>
-<p>Last updated on 2026-04-27 |
+<p>Last updated on 2026-06-17 |
 
         <a href="https://github.com/carpentries-incubator/byte-sized-rse-software-documentation-mkdocs/edit/main/episodes/example-code.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -422,6 +1063,8 @@
 <section><h2 class="section-heading" id="obtaining-example-code">Obtaining Example Code<a class="anchor" aria-label="anchor" href="#obtaining-example-code"></a>
 </h2>
 <hr class="half-width">
+<p>FIXME: for using MCP, probably makes sense for learners to create own
+copy of repo to perform actions on it</p>
 <p>For this lesson we’ll be using some example code available on GitHub,
 which we’ll clone onto our machines using the Bash shell. So firstly
 open a Bash shell (via Git Bash in Windows or Terminal on a Mac). Then,
@@ -444,7 +1087,7 @@ contents:</p>
   Checkpoint: Attendee Progress
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Who’s been able to clone the GitHub repository on their local
 machine?</p>
@@ -607,7 +1250,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.1" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.1.0" class="external-link">varnish (1.1.0)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.20.2" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.1.1" class="external-link">varnish (1.1.1)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -630,8 +1273,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/aio.html",
   "dateCreated": "2026-04-27",
-  "dateModified": "2026-04-27",
-  "datePublished": "2026-04-27"
+  "dateModified": "2026-06-17",
+  "datePublished": "2026-06-17"
 }
 
   </script><script>
