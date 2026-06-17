@@ -19,6 +19,8 @@ exercises: 0
 
 ## Obtaining Example Code
 
+FIXME: for using MCP, probably makes sense for learners to create own copy of repo to perform actions on it
+
 For this lesson we'll be using some example code available on GitHub,
 which we'll clone onto our machines using the Bash shell.
 So firstly open a Bash shell (via Git Bash in Windows or Terminal on a Mac). Then, on the command line, navigate to where you'd like the example code to reside,
