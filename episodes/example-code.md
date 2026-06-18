@@ -194,7 +194,7 @@ In this case, you may need to configure VSCode accordingly:
 
 Hopefully that should resolve the issue.
 
-::::::::::::::::::::::::::::::::::::::::: instructor
+:::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
