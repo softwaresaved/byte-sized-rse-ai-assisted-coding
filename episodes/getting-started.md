@@ -286,7 +286,7 @@ The file acts as persistent, project-level guidance for Copilot, covering things
 - Security or safety rules
 - How detailed Copilot’s answers should be
 
-By giving Copilot this shared context we can specify the developer's (or developer team’s) coding conventions, reuse existing patterns, and avoid unwanted approaches, with the aim to make its suggestions more relevant for a particular project.
+By giving Copilot this shared context it helps make its suggestions more relevant for a particular project.
 
 It serves a similar purposes to a `CONTRIBUTING.md` file in a code repository;
 it provides guidance for how suggestions, code changes and contributions should be made,
@@ -299,7 +299,7 @@ without instructions Copilot may suggest to:
 - Rename or format variable or function names inconsistently
 - Change behaviour subtly in an undesired way
 - Use an indentation style that isn't typically used by team members
-- Without instructions, Copilot may introduce a new design pattern the repository doesn't use
+- Without instructions, Copilot may also introduce a new design pattern the repository doesn't use
 
 ### Create an Instructions File
 
@@ -376,24 +376,18 @@ since our quotas will be consumed more quickly with higher cost multipliers!
 - Select `+` to create a new chat conversation
 - Ensure you have the `Ask` mode selected in the chat box,
 and the `inflammation-plot.py` file open and selected in the code editor
-- Select one of the `Claude Haiku 4.5` or `GPT-5 mini` models in the model dropdown.
+- Select the `Claude Haiku 4.5` model in the model dropdown.
 - Enter `How should I refactor this code to be more modular?` into the chat.
 
 Don't update your code with any of the suggestions just yet!
 
 :::::::::::::::::::::::::: solution
 
-1.
-
-For the question `How can I make this code more readable?` (your responses may differ!)
-
-Note that, for each model, at the top of the response, it mentions three references are used:
+Note that at the top of the response, it mentions three references are used:
 
 - `copilot-instructions.md` - as we would expect
 - `inflammation-01.csv` - since it's pattern is referenced in the source code
 - `inflammation-plot.py` - since this is the file it's taken as context
-
-Claude Haiku 4.5:
 
 ```
 Your code can be made more readable by extracting the repetitive subplot pattern into a helper function and using a tuple/list to store the axes. Here's a refactored version:
@@ -445,70 +439,6 @@ Key improvements:
 - Docstring documents the function's purpose and parameters
 - Maintains all existing functionality and conventions from your codebase
 ```
-
-GPT-5 mini:
-
-```
-Refactored file to improve readability (extracted helper, constants, main, axes list):
-```
-
-```python
-# ...existing code...
-import glob
-import numpy as np
-from matplotlib import pyplot as plt
-
-FIGSIZE = (10.0, 3.0)
-DATA_PATTERN = '../data/inflammation-*.csv'
-FILE_LIMIT = 3
-
-def plot_stat(ax, data, stat_func, ylabel):
-    """Plot a statistic computed from data on ax."""
-    ax.set_ylabel(ylabel)
-    ax.plot(stat_func(data))
-
-def main():
-    filenames = glob.glob(DATA_PATTERN)
-    filenames.sort()
-    filenames = filenames[:FILE_LIMIT]
-
-    for filename in filenames:
-        print(filename)
-        data = np.loadtxt(fname=filename, delimiter=',')
-
-        fig = plt.figure(figsize=FIGSIZE)
-        axes = [fig.add_subplot(1, 3, i + 1) for i in range(3)]
-
-        plot_stat(axes[0], data, lambda d: d.mean(axis=0), 'average')
-        plot_stat(axes[1], data, lambda d: d.max(axis=0), 'max')
-        plot_stat(axes[2], data, lambda d: d.min(axis=0), 'min')
-
-        fig.tight_layout()
-        fig.savefig(filename + '.png')
-
-if __name__ == '__main__':
-    main()
-# ...existing code...
-```
-
-2.
-
-Key similarities - both models:
-
-- Refactored the duplicated `fig.add_subplot` generation into a Python list comprehension
-- Refactored the duplicated `axes` set up into a separate function
-- Added a docstring to the new function, albeit only a brief one with `GPT-5 mini`
-
-3.
-
-Key differences:
-
-- Claude Haiku 4.5:
-  - Defines constants for some of the hardcoded values
-  - The high-level code is refactored into a `main()` function
-  - Adds a `__name__ == '__main__'` condition guarding a call to the refactored `main()` function
-- GPT-5 mini: the call to the refactored plotting function uses a `lambda` definition as an argument
-  - Does not provide a textual summary of what it has done at the end
 
 :::::::::::::::::::::::::::::::::::
 
