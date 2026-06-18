@@ -51,8 +51,8 @@ disable_sidebar_numbering: true
 episodes:
   - introduction.md
   - example-code.md
+  - getting-started.md
   - refactoring-code.md
-  - generating-code.md
 
 # Information for Learners
 learners:
