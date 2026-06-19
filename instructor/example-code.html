@@ -305,7 +305,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Example Code</h1>
-        <p>Last updated on 2026-06-18 |
+        <p>Last updated on 2026-06-19 |
 
         <a href="https://github.com/carpentries-incubator/byte-sized-rse-software-documentation-mkdocs/edit/main/episodes/example-code.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -385,8 +385,8 @@ Make sure you’re in the root directory of the repository, then type</p>
 </div>
 </section><section><h2 class="section-heading" id="examining-the-repository">Examining the Repository<a class="anchor" aria-label="anchor" href="#examining-the-repository"></a></h2>
 <hr class="half-width"><p>Next, let’s take a look at the contents of the repository by opening
-the repository directory within VSCode. You can do this in a couple of
-ways, either:</p>
+the repository directory within VSCode. After starting VSCode, you can
+do this in a couple of ways, either:</p>
 <ol style="list-style-type: decimal"><li>Select the <code>Source control</code> icon from the middle of the
 icons on the left navigation bar. You should see an
 <code>Open Folder</code> option, so select that.</li>
@@ -471,11 +471,13 @@ editor.</p>
 <span id="cb5-29"><a href="#cb5-29" tabindex="-1" aria-label="code-block-5-29"></a>    fig.tight_layout()</span>
 <span id="cb5-30"><a href="#cb5-30" tabindex="-1" aria-label="code-block-5-30"></a>    fig.savefig(filename <span class="op">+</span> <span class="st">'.png'</span>)</span></code></pre>
 </div>
-<p>We’ll be using this code example throughout the session. Note that as
-an example, the code is deliberately written to have flaws. Things like
-the line spacing is inconsistent, there are no code comments, there’s
-some code duplication, and you may spot other issues too. It’s also
-deliberately been kept relatively simple. This is for two reasons:</p>
+<p>The aim will be to use GitHub Copilot within VSCode to improve this
+script throughout the session.</p>
+<p>Note that as an example, the code is deliberately written to have
+flaws. Things like the line spacing is inconsistent, there are no code
+comments, there’s some code duplication, and you may spot other issues
+too. It’s also deliberately been kept relatively simple. This is for two
+reasons:</p>
 <ul><li>Most importantly, from a training perspective, when we use Copilot
 later to suggest changes, we’ll be able to quickly reason about the
 changes and how they impact the codebase</li>
@@ -546,6 +548,31 @@ and <code>Command Palette</code> in the menu, or by pressing
 </li>
 </ol><p>Hopefully that should resolve the issue.</p>
 </div>
+</div>
+</div>
+<div id="what-does-the-patient-inflammation-data-contain" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="what-does-the-patient-inflammation-data-contain" class="callout-inner">
+<h3 class="callout-title">What Does the Patient Inflammation Data
+Contain?</h3>
+<div class="callout-content">
+<p>Each dataset file in <code>data/</code> records inflammation
+measurements from a separate clinical trial of the drug, and each
+dataset contains information for 60 patients, who had their inflammation
+levels recorded (in some arbitrary units of inflammation measurement)
+for 40 days whilst participating in the trial.</p>
+<p>These datasets are reused from the <a href="https://swcarpentry.github.io/python-novice-inflammation/index.html" class="external-link">Software
+Carpentry Python novice lesson</a>.</p>
+<figure><img src="../fig/inflammation-study-pipeline.png" class="image-with-shadow figure mx-auto d-block" alt="Snapshot of the inflammation dataset" width="800"></figure><p>Each of the data files uses the popular <a href="https://en.wikipedia.org/wiki/Comma-separated_values" class="external-link">comma-separated
+(CSV) format</a> to represent the data, where:</p>
+<ul><li>each row holds inflammation measurements for a single patient</li>
+<li>each column represents a successive day in the trial</li>
+<li>each cell represents an inflammation reading on a given day for a
+patient</li>
+</ul></div>
 </div>
 </div>
 <div id="keypoints1" class="callout keypoints">
@@ -626,8 +653,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/example-code.html",
   "identifier": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/example-code.html",
   "dateCreated": "2026-04-27",
-  "dateModified": "2026-06-18",
-  "datePublished": "2026-06-18"
+  "dateModified": "2026-06-19",
+  "datePublished": "2026-06-19"
 }
 
   </script><script>

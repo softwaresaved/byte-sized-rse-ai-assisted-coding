@@ -306,7 +306,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Getting Started with GitHub Copilot</h1>
-        <p>Last updated on 2026-06-18 |
+        <p>Last updated on 2026-06-19 |
 
         <a href="https://github.com/carpentries-incubator/byte-sized-rse-software-documentation-mkdocs/edit/main/episodes/getting-started.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -361,27 +361,26 @@ and refactoring.</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="decide-on-copilot-privacy-settings">Decide on Copilot Privacy Settings<a class="anchor" aria-label="anchor" href="#decide-on-copilot-privacy-settings"></a></h2>
-<hr class="half-width"><p>Within GitHub itself, since Copilot’s VSCode configuration inherits
-from GitHub’s configuration, as a first step we can and should decide
-and configure a suitable level of privacy for how Copilot will operate;
-particularly if we are making use of sensitive or otherwise confidential
-data within our codebase.</p>
+<hr class="half-width"><p>Since Copilot’s VSCode configuration inherits from GitHub’s
+configuration, as a first step we can and should decide and configure a
+suitable level of privacy for how Copilot will operate; particularly if
+we are making use of sensitive or otherwise confidential data within our
+codebase.</p>
 <p>We can set this within our GitHub user settings, which will apply to
-all we do with Copilot:</p>
-<ol style="list-style-type: decimal"><li><p>Select out GitHub profile icon at github.com, and select
-<code>Settings</code> and then <code>Copilot</code></p></li>
-<li>
-<p>Scroll down to <code>Privacy</code>:</p>
-<figure><img src="../fig/copilot-privacy.png" alt="Privacy settings within GitHub Copilot" class="figure mx-auto d-block"><div class="figcaption">Privacy settings within GitHub Copilot</div>
-</figure></li>
-</ol><p>By default, in the free tier, the first two are enabled.</p>
+all we do with Copilot. Using a browser, go to <a href="../github.com">github.com</a>, and then:</p>
+<ol style="list-style-type: decimal"><li>Select the GitHub profile icon at github.com, and select
+<code>Copilot Settings</code> from the drop down menu</li>
+<li>Scroll down to <code>Privacy</code>
+</li>
+</ol><p>By default, in the free tier, the two privacy options are
+enabled.</p>
 <p>In general, it’s a good idea to disable
 <code>Suggestions matching public code</code> since the risk is that it
 may make use of public code sources in a way that isn’t properly
-licensed. In addition, it’s recommended to disable the other two
+licensed. In addition, it’s recommended to disable the other one
 (depending on the extent you trust GitHub and their affiliates), since -
-as it clearly states - they allow GitHub and others to use data and code
-snippets for product improvements.</p>
+as it clearly states - it allows GitHub and others to use your data and
+code snippets for product improvements.</p>
 </section><section><h2 class="section-heading" id="asking-questions-about-your-code">Asking Questions about Your Code<a class="anchor" aria-label="anchor" href="#asking-questions-about-your-code"></a></h2>
 <hr class="half-width"><p>Attempting to understand a new codebase, whether it’s your first week
 on a project or one you have inherited from another source, can be
@@ -402,37 +401,14 @@ understand that Copilot is not an absolute source of truth, but more of
 a guide to help build your own understanding of a codebase.</p>
 <p>Let’s use Copilot to help us investigate how our existing codebase
 works.</p>
-<div id="what-does-the-patient-inflammation-data-contain" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
-</div>
-<span class="callout-header">Callout</span>
-<div id="what-does-the-patient-inflammation-data-contain" class="callout-inner">
-<h3 class="callout-title">What Does the Patient Inflammation Data
-Contain?</h3>
-<div class="callout-content">
-<p>Each dataset file in <code>data/</code> records inflammation
-measurements from a separate clinical trial of the drug, and each
-dataset contains information for 60 patients, who had their inflammation
-levels recorded (in some arbitrary units of inflammation measurement)
-for 40 days whilst participating in the trial.</p>
-<p>These datasets are reused from the <a href="https://swcarpentry.github.io/python-novice-inflammation/index.html" class="external-link">Software
-Carpentry Python novice lesson</a>.</p>
-<figure><img src="../fig/inflammation-study-pipeline.png" class="image-with-shadow figure mx-auto d-block" alt="Snapshot of the inflammation dataset" width="800"></figure><p>Each of the data files uses the popular <a href="https://en.wikipedia.org/wiki/Comma-separated_values" class="external-link">comma-separated
-(CSV) format</a> to represent the data, where:</p>
-<ul><li>each row holds inflammation measurements for a single patient</li>
-<li>each column represents a successive day in the trial</li>
-<li>each cell represents an inflammation reading on a given day for a
-patient</li>
-</ul></div>
-</div>
-</div>
 <div class="section level3">
 <h3 id="using-copilot-for-the-first-time">Using Copilot for the First Time<a class="anchor" aria-label="anchor" href="#using-copilot-for-the-first-time"></a></h3>
-<p>Let’s move over to using the VSCode pane on the right, labeled
-<code>Build with Agent</code>. You’ll notice at the bottom there’s a
-“chat” box, with a number of selectable dropdown options below it. You
-can hover over each one to discover what it is.</p>
+<p>Let’s move over to using the VSCode chat pane on the right. If you
+don’t see this, select <code>View</code> from the VSCode menu and then
+<code>Chat</code> to display it.</p>
+<p>You’ll notice at the bottom there’s a “chat” box, with a number of
+selectable dropdown options below it. You can hover over each one to
+discover what it is.</p>
 <p>On the left, there’s <code>Set Agent</code>, which allows you to set
 the mode of operation with Copilot. Each of these modes provides an
 increasing degree of autonomy for Copilot to interact with your
@@ -441,12 +417,13 @@ code:</p>
 <code>Ask</code> - designed for learning and orienting yourself with
 existing code without changing it.</li>
 <li>
-<code>Agent</code> - proposes concrete code changes for your
-approval based on your instructions. It’s useful when you already
-understand a codebase that you want to change.</li>
+<code>Plan</code> - will iterate on building a plan based on a
+prompt, exploring the codebase and creating a recommended plan
+containing step-by-step instructions for what to do. It won’t by itself
+make any changes to your codebase.</li>
 <li>
-<code>Plan</code> - the most powerful mode, which lets you specify a
-high-level prompt to allow Copilot at a high level of autonomy to plan
+<code>Agent</code> - the most powerful mode, which lets you specify
+a high-level prompt to allow Copilot at a high level of autonomy to plan
 changes in steps, select files, and run tools or terminal commands,
 iterating on code edits until it is complete.</li>
 </ul><p>Since we want to ask questions regarding our codebase, let’s set the
@@ -508,7 +485,8 @@ and so on.</p>
 <p>There’s a very useful cheat sheet developed by Northwestern
 University (US) Research Computing and Data Services, which can be found
 in their <a href="https://github.com/nuitrcs/promptEngineering" class="external-link">GitHub
-promptEngineering repository</a>.</p>
+promptEngineering repository</a>. It contains tips and do and don’t
+examples to help you formulate good prompts.</p>
 <div id="managing-context" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
@@ -542,8 +520,8 @@ useful.</p>
 <h3 id="investigating-our-codebase">Investigating our Codebase<a class="anchor" aria-label="anchor" href="#investigating-our-codebase"></a></h3>
 <p>Let’s ask some questions about our codebase so we can understand the
 implementation, in terms of the used components and how they work.</p>
-<p>In the chat window, ensure that the <code>FIXME</code> model is
-selected:</p>
+<p>In the chat window, ensure that the <code>Claude Haiku 4.5</code>
+model is selected:</p>
 <pre><code>What are the main packages used?</code></pre>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -658,15 +636,18 @@ pattern the repository doesn’t use</li>
 </ul></div>
 <div class="section level3">
 <h3 id="create-an-instructions-file">Create an Instructions File<a class="anchor" aria-label="anchor" href="#create-an-instructions-file"></a></h3>
-<p>Let’s create an instructions file now, by selecting the gear icon at
-the top right of the <code>CHAT</code> panel, and selecting
-<code>Generate Chat Instructions</code>. At this point, VSCode will do a
-number of things in order to create this file:</p>
+<p>Let’s create an instructions file now, by invoking a Copilot command
+in the chat window:</p>
+<pre><code>/create-instructions in a .github/copilot-instructions.md file. Use PEP8 for Python code style. Do not modify files in the data/ directory.</code></pre>
+<p>We specify the exact location where the instructions will live,
+since</p>
+<p>At this point, VSCode will do a number of things in order to create
+this file:</p>
 <ol style="list-style-type: decimal"><li>Analyse the structure and files in the workspace</li>
 <li>Analyse the data directory <code>data/</code> which contains our
 inflammation data files</li>
-<li>Create the <code>.github/.copilot-instructions.md</code> file
-itself</li>
+<li>Create the <code>.github/instructions/copilot-instructions.md</code>
+file itself</li>
 <li>Summarise the contents of the new instructions file</li>
 <li>Provide some questions for feedback to add more specific guidance in
 the instructions file</li>
@@ -674,29 +655,25 @@ the instructions file</li>
 <code>data</code> directory, from which it can then ascertain the
 structure of the data, which you’ll have to approve. We’ll look at the
 contents of the file in a moment.</p>
-<p>You may also see and respond to some feedback questions, such as:</p>
-<pre><code>1. Should I add more detail about the other datasets (climate data, coordinates), or keep focus only on the inflammation data workflow?
-2. Are there specific Python version requirements or package versions that should be documented?
-3. Would you like guidance on handling edge cases (e.g., what happens with empty CSV files, missing columns)?</code></pre>
+<p>You may also see and need to respond to some feedback questions.</p>
 </div>
 <div class="section level3">
 <h3 id="working-with-our-instructions-file">Working with our Instructions File<a class="anchor" aria-label="anchor" href="#working-with-our-instructions-file"></a></h3>
 <p>You should now see a <code>.github/copilot-instructions.md</code>
-file appear in VSCode’s file browser. If you open this file now, you’ll
-see some things to note:</p>
-<ul><li>Content is highlighted with a <code>Keep / Undo</code> option. This
+file appear in VSCode’s file browser, which should look something like
+<a href="../files/copilot-instructions.html">this one</a>.</p>
+<p>If you open this file now, you’ll see some things to note:</p>
+<ul><li>Perhaps some YAML “front matter” at the top, with a description and
+indicating it only applies to Python files (it may specify this
+information in another way however).</li>
+<li>Content is highlighted with a <code>Keep / Undo</code> option. This
 is VSCode’s way of highlighting the changes Copilot has made as
 suggestions, so that you explicitly review and approve them.</li>
-<li>A summary of the main code entry point, the data source directory,
-and the overall workflow of the application</li>
-<li>A section on the code patterns and conventions, essentially
-generalising how the code works and providing assumptions on how it
-operates,
-e.g. <code>axis=0 consistently means aggregate across rows (patients), preserving measurement dimensions</code>
-</li>
-<li>Some suggestions on how to refactor (tidy) the codebase and
-otherwise enhancement it</li>
-</ul><p>Approve this file addition by selecting <code>Keep</code>.</p>
+<li>Sections on code patterns and conventions to follow.</li>
+<li>A section or other stipulation on not modifying the
+<code>data/</code> directory.</li>
+</ul><p>Approve this file addition by selecting <code>Keep</code>, and save
+the file.</p>
 <p>From this starting point we are free to update this file manually as
 we continue to develop the code, and this context will be used whenever
 we interact with Copilot.</p>
@@ -736,10 +713,11 @@ will be consumed more quickly with higher cost multipliers!</p>
 <h3 class="callout-title">Asking Copilot to Suggest Improvements</h3>
 <div class="callout-content">
 <p>5 mins.</p>
-<ul><li>Select <code>+</code> to create a new chat conversation</li>
+<ul><li>In the chat window, select <code>+</code> to create a new chat
+conversation.</li>
 <li>Ensure you have the <code>Ask</code> mode selected in the chat box,
 and the <code>inflammation-plot.py</code> file open and selected in the
-code editor</li>
+code editor.</li>
 <li>Select the <code>Claude Haiku 4.5</code> model in the model
 dropdown.</li>
 <li>Enter
@@ -756,62 +734,89 @@ the chat.</li>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>Note that at the top of the response, it mentions three references
-are used:</p>
-<ul><li>
-<code>copilot-instructions.md</code> - as we would expect</li>
-<li>
-<code>inflammation-01.csv</code> - since it’s pattern is referenced
-in the source code</li>
-<li>
-<code>inflammation-plot.py</code> - since this is the file it’s
-taken as context</li>
-</ul><pre><code>Your code can be made more readable by extracting the repetitive subplot pattern into a helper function and using a tuple/list to store the axes. Here's a refactored version:</code></pre>
+<pre><code>Looking at your code, I can see several opportunities to improve modularity. Here's a structured refactoring approach:
+
+1. Mixed concerns: File loading, figure creation, and plotting logic are all tangled together
+1. Difficult to test: Can't easily test individual plotting functions
+1. Hard to reuse: If you want to plot just mean or max, you'd need to refactor
+1. No separation of I/O: File operations aren't separated from business logic
+
+Here's how I'd reorganize it:
+</code></pre>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="im">import</span> glob</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a><span class="kw">def</span> plot_statistics(axes, data, stat_func, label):</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>    <span class="co">"""Plot a single statistic on the given axes.</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a><span class="co">    </span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a><span class="co">    Args:</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a><span class="co">        axes: Matplotlib axes object</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a><span class="co">        data: NumPy array of inflammation measurements</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1" aria-label="code-block-8-12"></a><span class="co">        stat_func: Function to compute statistic (e.g., data.mean)</span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1" aria-label="code-block-8-13"></a><span class="co">        label: Y-axis label string</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1" aria-label="code-block-8-14"></a><span class="co">    """</span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1" aria-label="code-block-8-15"></a>    axes.set_ylabel(label)</span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1" aria-label="code-block-8-16"></a>    axes.plot(stat_func(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="kw">def</span> load_data(filename):</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>    <span class="co">"""Load inflammation data from CSV file."""</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a>    <span class="cf">return</span> np.loadtxt(fname<span class="op">=</span>filename, delimiter<span class="op">=</span><span class="st">','</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a><span class="kw">def</span> create_figure_with_subplots():</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a>    <span class="co">"""Create a figure with 3 subplots for inflammation plots."""</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a>    axes <span class="op">=</span> [</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1" aria-label="code-block-8-12"></a>        fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1" aria-label="code-block-8-13"></a>        fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1" aria-label="code-block-8-14"></a>        fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1" aria-label="code-block-8-15"></a>    ]</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1" aria-label="code-block-8-16"></a>    <span class="cf">return</span> fig, axes</span>
 <span id="cb8-17"><a href="#cb8-17" tabindex="-1" aria-label="code-block-8-17"></a></span>
-<span id="cb8-18"><a href="#cb8-18" tabindex="-1" aria-label="code-block-8-18"></a>filenames <span class="op">=</span> glob.glob(<span class="st">'../data/inflammation-*.csv'</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" tabindex="-1" aria-label="code-block-8-19"></a>filenames.sort()</span>
-<span id="cb8-20"><a href="#cb8-20" tabindex="-1" aria-label="code-block-8-20"></a>filenames <span class="op">=</span> filenames[<span class="dv">0</span>:<span class="dv">3</span>]</span>
-<span id="cb8-21"><a href="#cb8-21" tabindex="-1" aria-label="code-block-8-21"></a></span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1" aria-label="code-block-8-22"></a><span class="cf">for</span> filename <span class="kw">in</span> filenames:</span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1" aria-label="code-block-8-23"></a>    <span class="bu">print</span>(filename)</span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1" aria-label="code-block-8-24"></a></span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1" aria-label="code-block-8-25"></a>    data <span class="op">=</span> np.loadtxt(fname<span class="op">=</span>filename, delimiter<span class="op">=</span><span class="st">','</span>)</span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1" aria-label="code-block-8-26"></a></span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1" aria-label="code-block-8-27"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))</span>
-<span id="cb8-28"><a href="#cb8-28" tabindex="-1" aria-label="code-block-8-28"></a>    axes <span class="op">=</span> [fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)]</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1" aria-label="code-block-8-18"></a><span class="kw">def</span> plot_inflammation_data(data, axes):</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1" aria-label="code-block-8-19"></a>    <span class="co">"""Plot mean, max, and min inflammation data on provided axes."""</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1" aria-label="code-block-8-20"></a>    metrics <span class="op">=</span> [</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1" aria-label="code-block-8-21"></a>        (<span class="st">'average'</span>, data.mean(axis<span class="op">=</span><span class="dv">0</span>)),</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1" aria-label="code-block-8-22"></a>        (<span class="st">'max'</span>, data.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">0</span>)),</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1" aria-label="code-block-8-23"></a>        (<span class="st">'min'</span>, data.<span class="bu">min</span>(axis<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1" aria-label="code-block-8-24"></a>    ]</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1" aria-label="code-block-8-25"></a>    </span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1" aria-label="code-block-8-26"></a>    <span class="cf">for</span> ax, (label, values) <span class="kw">in</span> <span class="bu">zip</span>(axes, metrics):</span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1" aria-label="code-block-8-27"></a>        ax.set_ylabel(label)</span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1" aria-label="code-block-8-28"></a>        ax.plot(values)</span>
 <span id="cb8-29"><a href="#cb8-29" tabindex="-1" aria-label="code-block-8-29"></a></span>
-<span id="cb8-30"><a href="#cb8-30" tabindex="-1" aria-label="code-block-8-30"></a>    plot_statistics(axes[<span class="dv">0</span>], data, data.mean, <span class="st">'average'</span>)</span>
-<span id="cb8-31"><a href="#cb8-31" tabindex="-1" aria-label="code-block-8-31"></a>    plot_statistics(axes[<span class="dv">1</span>], data, data.<span class="bu">max</span>, <span class="st">'max'</span>)</span>
-<span id="cb8-32"><a href="#cb8-32" tabindex="-1" aria-label="code-block-8-32"></a>    plot_statistics(axes[<span class="dv">2</span>], data, data.<span class="bu">min</span>, <span class="st">'min'</span>)</span>
-<span id="cb8-33"><a href="#cb8-33" tabindex="-1" aria-label="code-block-8-33"></a></span>
-<span id="cb8-34"><a href="#cb8-34" tabindex="-1" aria-label="code-block-8-34"></a>    fig.tight_layout()</span>
-<span id="cb8-35"><a href="#cb8-35" tabindex="-1" aria-label="code-block-8-35"></a>    fig.savefig(filename <span class="op">+</span> <span class="st">'.png'</span>)</span></code></pre>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1" aria-label="code-block-8-30"></a><span class="kw">def</span> process_inflammation_file(filename, output_dir<span class="op">=</span><span class="st">'.'</span>):</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1" aria-label="code-block-8-31"></a>    <span class="co">"""Process a single inflammation data file and save plot."""</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1" aria-label="code-block-8-32"></a>    data <span class="op">=</span> load_data(filename)</span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1" aria-label="code-block-8-33"></a>    fig, axes <span class="op">=</span> create_figure_with_subplots()</span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1" aria-label="code-block-8-34"></a>    </span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1" aria-label="code-block-8-35"></a>    plot_inflammation_data(data, axes)</span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1" aria-label="code-block-8-36"></a>    </span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1" aria-label="code-block-8-37"></a>    fig.tight_layout()</span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1" aria-label="code-block-8-38"></a>    output_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>output_dir<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">.png"</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1" aria-label="code-block-8-39"></a>    fig.savefig(output_filename)</span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1" aria-label="code-block-8-40"></a>    plt.close(fig)  <span class="co"># Clean up to avoid memory issues</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1" aria-label="code-block-8-41"></a>    </span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1" aria-label="code-block-8-42"></a>    <span class="cf">return</span> output_filename</span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1" aria-label="code-block-8-43"></a></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1" aria-label="code-block-8-44"></a><span class="kw">def</span> main():</span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1" aria-label="code-block-8-45"></a>    <span class="co">"""Main entry point."""</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1" aria-label="code-block-8-46"></a>    filenames <span class="op">=</span> glob.glob(<span class="st">'data/inflammation-*.csv'</span>)</span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1" aria-label="code-block-8-47"></a>    filenames.sort()</span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1" aria-label="code-block-8-48"></a>    </span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1" aria-label="code-block-8-49"></a>    <span class="cf">for</span> filename <span class="kw">in</span> filenames:</span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1" aria-label="code-block-8-50"></a>        <span class="bu">print</span>(filename)</span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1" aria-label="code-block-8-51"></a>        output_file <span class="op">=</span> process_inflammation_file(filename)</span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1" aria-label="code-block-8-52"></a>        <span class="bu">print</span>(<span class="ss">f"Saved: </span><span class="sc">{</span>output_file<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1" aria-label="code-block-8-53"></a></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1" aria-label="code-block-8-54"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb8-55"><a href="#cb8-55" tabindex="-1" aria-label="code-block-8-55"></a>    main()</span></code></pre>
 </div>
-<pre><code>Key improvements:
+<pre><code>Benefits of This Refactoring
 
-- Helper function eliminates the three identical ylabel/plot blocks
-- List comprehension replaces axes1, axes2, axes3 variables
-- Docstring documents the function's purpose and parameters
-- Maintains all existing functionality and conventions from your codebase</code></pre>
+- Testability: each function can be unit tested independently
+- Reusability: can use plot_inflammation_data() with different data sources
+- Clarity: each function has a single, clear responsibility
+- Maintainability: changes to plot styling only affect plot_inflammation_data()
+- Extensibility: easy to add new metrics or change output format
+
+Further Improvements (Optional)
+
+- Configuration: Extract hardcoded values (figsize, delimiter) to a config dict
+- Error handling: Add try/except blocks around file I/O
+- Logging: Replace print() with proper logging
+- Type hints: Add Python type annotations for clarity
+- Output directory: Make output location configurable (I've added an optional parameter)</code></pre>
 </div>
 </div>
 </div>
@@ -918,8 +923,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/getting-started.html",
   "identifier": "https://carpentries-incubator.github.io/byte-sized-rse-software-documentation-mkdocs/instructor/getting-started.html",
   "dateCreated": "2026-04-27",
-  "dateModified": "2026-06-18",
-  "datePublished": "2026-06-18"
+  "dateModified": "2026-06-19",
+  "datePublished": "2026-06-19"
 }
 
   </script><script>
