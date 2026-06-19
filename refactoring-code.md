@@ -53,24 +53,24 @@ There are also `Next edit suggestions` which go beyond the immediate context to 
 These predict the location and the content of the next edit you'll want to make.
 
 Let's say we want to add a new section describing our coding style.
-Add the following at the bottom of the file:
+Add the following at a suitable point in the file (you won't need to add the header if it already exists):
 
 ```markdown
-## Coding Style
+## Python Coding Style
 - 
 ```
 
 You should see a suggestion appear direcly after your cursor,
-something like `Use PEP 8 style guidelines for Python code`, `Use descriptive variable names (e.g., data, mean_plot, max_plot, min_plot)` or similar.
+something like `Use type hints for function parameters and return types`, `Use 'snake_case' for variable and function names` or similar.
 You can accept this suggestion by pressing `Tab`.
 If you continue to add new lines after this, you may find it continues to suggest other things to include,
 so we end up with, for example:
 
 ```markdown
 ### Coding Style
-- Use descriptive variable names (e.g., `inflammation_data`, `mean_inflammation`)
-- Follow PEP 8 for formatting (indentation, spacing)
-- Comment code sections for clarity, especially data processing steps
+- Use type hints for function parameters and return types
+- Use `snake_case` for variable and function names
+- Use `CamelCase` for class names
 ```
 
 It does this by rapidly incorporating contextual information from a number of sources to infer a suggestion,
@@ -79,7 +79,7 @@ including:
 - The code file you are editing
 - Any code you have currently selected
 - Frameworks, languages and dependencies
-- Any instructions file
+- Any instructions files
 
 Copilot suggestions are a starting point, but we should alwyays review, understand, and amend as necessary,
 as opposed to blindly accepting suggestions.
@@ -90,17 +90,14 @@ as opposed to blindly accepting suggestions.
 
 3 mins.
 
-Read through and understand the Copilot suggestions for the Coding Style section of the `copilot-instructions.md` file,
-and add/amend as you see fit, perhaps to fit your coding style.
+Review the `copilot-instructions.md` file, and add/amend to fit your coding style.
 
 :::::::::::::::::::::::::: solution
 
 For example:
 
 ```markdown
-### Coding Style
-- Follow PEP 8 style guidelines for Python code
-- Use descriptive variable names (e.g., `inflammation_data`, `mean_inflammation`)
+### Python Coding Style
 - Comment code sections for clarity, especially to explain purpose and logic, and to describe data processing steps
 ```
 
@@ -118,14 +115,16 @@ by placing an additional `, ` at the end of the given list of parameters, and se
     axes1.plot(data.mean(axis=0), ...)
 ```
 
-For example, you might see:
+You might see a suggestion for a `label` and/or `color` parameter.
+For example, add in one for `color`:
 
 ```python
     axes1.plot(data.mean(axis=0), color='blue')
 ```
 
 If we approve this change and then do the same for the other `axes2` and `axes3` variables,
-it suggests variants of that for the other calls to `plot`, e.g.
+it suggests variants of that for the other calls to `plot`,
+and you can approve these by selecting `Tab`, e.g.
 
 ```python
     axes2.plot(data.mean(axis=0), color='red')
@@ -139,22 +138,21 @@ so doing something similar for other `.plot` calls is likely.
 
 ## Agent Mode: What about Small Changes?
 
-Agent mode differs from inline suggestions by offering the ability to enact changes step-by-step directly on your approval.
+Agent mode differs from inline suggestions by offering the ability to enact changes step-by-step.
 Unlike inline suggestions which appear as you type, this mode allows you to request broader changes across multiple lines or functions,
-so it's ideal for repetive things like small-scale refactoring of code logic or renaming variables.
-It represents a middle ground in terms of autonomy — more direct than inline suggestions but less autonomous than Plan mode.
+so it can be used for small or large scale changes.
 
-To get started with using Copilot to make a small edit, you highlight the code you want to modify before requesting the change you want.
+To use Agent mode to make a small edit, you highlight the code you want to modify before requesting the change you want.
 
 For example:
 
-1. Select `+` to create a new chat conversation
-1. Select `inflammation-plot.py` in the chat context
-1. Select `Ask` as the Copilot mode in the chat window
-1. Select a model of your choice
-1. Select the entire for loop in `inflammation-plot.py`; you'll notice that the context now includes this file with the selected line numbers
-1. Enter `Add a comment about this code above this loop`
-1. Press `Enter`
+1. Select `+` to create a new chat conversation.
+1. Select `inflammation-plot.py` in the chat context.
+1. Select `Agent` as the Copilot mode in the chat window.
+1. Select a model of your choice.
+1. Select the entire for loop in `inflammation-plot.py`; you'll notice that the chat context now includes this file with the selected line numbers.
+1. Enter `Add a comment about this code above this loop`.
+1. Press `Enter`.
 
 You'll now see a comment added above the loop highlighted in green, e.g.
 
@@ -194,23 +192,83 @@ In short, it aims to guide users through a thoughtful planning phase prior to co
 
 Let's try it out now.
 
+1. Select `+` to create a new chat conversation.
 1. Select `Plan` from the Copilot mode dropdown in the chat panel.
-1. Select `Claude Haiku 4.5` selected in the model dropdown
+1. Select `inflammation-plot.py` in the chat context.
+1. Select `Claude Haiku 4.5` selected in the model dropdown.
 1. Enter the following into the chat:
 
    `How should I refactor this code to make it more modular, readable, and documented?`
 
 1. Press `Enter`.
-1. Answer any clarifying questions from the planning agent.
+1. Answer any clarifying questions from the plan agent.
 1. Observe the step-by-step thinking and actions undertaken by the agent.
-1. When the planning agent concludes, select the option to `Open in Editor`, and `Keep`.
+1. When the planning agent concludes, you'll have a number of options to proceed. Select the option to `Open in Editor`, and `Keep`.
 1. Save the file that appears by selecting `Save as prompt file` which should appear in the bottom right of the editing window.
 
 You should find you end up with something similar to this, saved as a prompt file (either in the repository root or in the `.github/prompts` directory),
 although the content will likely differ:
 
 ```markdown
-FIXME
+# Plan: Refactor inflammation-plot.py for modularity and readability
+
+## TL;DR
+Extract the visualization logic into dedicated functions with clear responsibilities, add comprehensive docstrings at module and function levels, use descriptive variable names, and apply the main-guard pattern. This will make the code more reusable, testable, and easier to maintain.
+
+## Steps
+
+1. **Add module-level docstring** — Describe what the script does, its input (data files), and output (PNG plots)
+
+2. **Extract plot creation into `create_inflammation_plot()` function** — Move the subplot creation and data plotting logic (lines 14-27) into a separate function that takes a data array and returns a matplotlib figure. This function handles:
+   - Creating the figure with specified dimensions
+   - Setting up three subplots
+   - Plotting mean, max, and min statistics
+   - Returning the figure object
+
+3. **Extract statistics calculation and plotting into helper function (optional)** — Create a small helper like `plot_statistic()` to reduce repetition when adding the three plots (mean, max, min). Or keep it simple and just document the pattern inline.
+
+4. **Create main processing function** — Extract the file globbing, sorting, and iteration loop into a `main()` or `process_files()` function that orchestrates the workflow
+
+5. **Add function docstrings** — Each function needs:
+   - One-line summary
+   - Parameters (what they are, expected types/format)
+   - Returns (what is returned)
+   - Brief description of behavior
+
+6. **Improve variable names** — Replace `axes1`, `axes2`, `axes3` with `axes_avg`, `axes_max`, `axes_min` for clarity
+
+7. **Extract configuration constants** — Move hardcoded values to the top:
+   - Figure size: `FIGURE_SIZE = (10.0, 3.0)`
+   - Colors: `COLOR_MEAN = 'blue'`, `COLOR_MAX = 'red'`, `COLOR_MIN = 'green'`
+   - Output extension: `OUTPUT_EXT = '.png'`
+
+8. **Add main guard** — Wrap the entry point with `if __name__ == '__main__':` to allow importing as a module
+
+## Relevant files
+- inflammation-plot.py — Refactor entire file with functions, docstrings, and constants
+
+## Verification
+1. Script runs without errors: `python inflammation-plot.py`
+2. All 12 PNG files are generated in the workspace root
+3. Each function has a complete docstring (module, function-level)
+4. Variable names clearly indicate purpose (no generic `axes1`, `axes2`, `axes3`)
+5. All configuration values are defined as constants at module top
+6. Code is syntactically valid (no PEP8 linting errors per `.github/copilot-instructions.md`)
+
+## Decisions
+- Keep the core logic simple — don't over-engineer with factories or complex patterns
+- Extract constants only for values used more than once or that represent meaningful configuration
+- Document the statistics meaning (average across patients, max/min across time points) in function docstrings
+
+## Further Considerations
+1. **Testing strategy** — Would you like the refactored code to be more testable (e.g., separating I/O from logic so functions can be unit tested)?
+   - Recommended: Separate file I/O and visualization logic, making the core plot function testable with mock numpy arrays
+
+2. **Output directory** — Currently saves PNG files in the workspace root. Should outputs go to a dedicated `output/` directory instead?
+   - Recommended: Keep in root for now (inline with current behavior), but mention this as future improvement
+
+3. **Error handling** — Should the code validate that data files exist and handle malformed CSV gracefully?
+   - Recommended: Add basic try-except around file loading with helpful error messages
 ```
 
 Just by itself, this feature is incredibly useful.
@@ -221,10 +279,11 @@ That way, we maintain full control of those changes.
 The review and refine component is particularly important.
 We should ask questions such as:
 
-- Does the change solve the actual requirement, or only a plausible-looking version of it?
+- Are there any questions posed by the plan agent that we need to answer?
+- Do the suggested changes solve the actual purpose of the request, or only a plausible-looking version of it?
 - Has the AI changed anything outside the intended scope?
 - Is the proposed design consistent with the existing architecture and coding conventions?
-- Is the code simple enough to understand, maintain, and review?
+- Importantly, is the code simple enough to understand, maintain, and review?
 - Are there meaningful new or updated tests that prove the change works?
 - Could the change introduce security, privacy, licensing, or performance risks?
 - Are any dependencies, generated code, or copied patterns acceptable for the project?
@@ -234,6 +293,54 @@ Essentially, amend the plan until it is within the scope of what is required,
 using techniques, design choices, and technologies that we understand,
 for which we are capable of taking responsibility to adapt and maintain in the future.
 If we can't do these things, we need to refine the plan.
+
+:::::::::::::::::::::::::::::::::::::: challenge
+
+## Refine the Plan
+
+5 mins.
+
+Review the generated plan, answering any questions and refining it to your satisfaction,
+then save the file.
+
+:::::::::::::::::::::::::: solution
+
+For example, a generated plan asked questions about the following points:
+
+```markdown
+## Further Considerations
+1. **Testing strategy** — Would you like the refactored code to be more testable (e.g., separating I/O from logic so functions can be unit tested)?
+   - Recommended: Separate file I/O and visualization logic, making the core plot function testable with mock numpy arrays
+
+2. **Output directory** — Currently saves PNG files in the workspace root. Should outputs go to a dedicated `output/` directory instead?
+   - Recommended: Keep in root for now (inline with current behavior), but mention this as future improvement
+
+3. **Error handling** — Should the code validate that data files exist and handle malformed CSV gracefully?
+   - Recommended: Add basic try-except around file loading with helpful error messages
+```
+
+Which were added to a `Decisions` section in the plan:
+
+```markdown
+- Separate file I/O and visualization logic, making the core plot function testable with mock numpy arrays
+- Place output files within a dedicated `output/` directory
+- Add basic try-except around file loading with helpful error messages
+```
+
+:::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+So why not just use the agent mode to develop the code without developing a plan first?
+Whilst this would be faster, there are some key benefits to a planning step:
+
+- Importantly, we are now moving from **ad-hoc** development to **intentional** development,
+which externalises key decisions, and forces us to consider ways forward and make such decisions openly,
+and capture these within a defined plan that we validate and refine before moving to implementation.
+- We may extend this plan with other sections and further detail as needed.
+- It has created a concrete document we can discuss and refine with colleagues before we proceed.
+- Importantly, it also provides a "checkpoint": if the implementation is unsatisfactory we can remove the implementation, amend the plan, and ask Copilot to create the implementation again.
+
 
 ## Agent Mode: Larger-scale Changes
 
@@ -250,7 +357,7 @@ Since we've already come up with a plan for refactoring our code,
 let's now use agent mode to follow this plan and implement the changes.
 
 1. Select `+` to create a new chat conversation
-1. Select `inflammation-plot.py` in the chat context
+1. Select `inflammation-plot.py` in the chat context, then select `+` and the plan file to ensure it's also included.
 1. Set Copilot's mode to `Agent`
 1. Select `Claude Haiku 4.5` from the models dropdown
 1. Enter the following chat prompt: `Refactor the code following the plan`
@@ -261,20 +368,124 @@ let's now use agent mode to follow this plan and implement the changes.
 An example of output:
 
 ```python
+"""
+Inflammation data visualization script.
+
+This module processes inflammation data from CSV files and generates
+visualization plots showing average, maximum, and minimum inflammation
+values across patients over time.
+
+Input: CSV files in the data/ directory (inflammation-*.csv)
+Output: PNG plots saved to the output/ directory for each data file
+"""
+
+import glob
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Configuration constants
+FIGURE_SIZE = (10.0, 3.0)
+COLOR_MEAN = 'blue'
+COLOR_MAX = 'red'
+COLOR_MIN = 'green'
+OUTPUT_EXT = '.png'
+DATA_PATTERN = 'data/inflammation-*.csv'
+OUTPUT_DIR = 'output/'
+
+
+def create_inflammation_plot(data):
+    """
+    Create a visualization plot for inflammation data.
+    
+    Parameters
+    ----------
+    data : numpy.ndarray
+        A 2D array where rows represent patients and columns represent
+        time points. Each cell contains an inflammation value.
+    
+    Returns
+    -------
+    matplotlib.figure.Figure
+        A figure object containing three subplots showing the mean,
+        maximum, and minimum inflammation values across patients.
+    """
+    fig = plt.figure(figsize=FIGURE_SIZE)
+    
+    axes_avg = fig.add_subplot(1, 3, 1)
+    axes_max = fig.add_subplot(1, 3, 2)
+    axes_min = fig.add_subplot(1, 3, 3)
+    
+    axes_avg.set_ylabel('average')
+    axes_avg.plot(data.mean(axis=0), color=COLOR_MEAN)
+    
+    axes_max.set_ylabel('max')
+    axes_max.plot(data.max(axis=0), color=COLOR_MAX)
+    
+    axes_min.set_ylabel('min')
+    axes_min.plot(data.min(axis=0), color=COLOR_MIN)
+    
+    fig.tight_layout()
+    
+    return fig
+
+
+def process_files():
+    """
+    Process all inflammation data files and generate visualization plots.
+    
+    This function:
+    1. Finds all inflammation CSV files in the data directory
+    2. Loads each file as a numpy array
+    3. Creates a visualization plot for the data
+    4. Saves the plot as a PNG file in the output directory
+    
+    Returns
+    -------
+    None
+    """
+    filenames = glob.glob(DATA_PATTERN)
+    filenames.sort()
+    
+    for filename in filenames:
+        print(f"Processing {filename}")
+        
+        try:
+            data = np.loadtxt(fname=filename, delimiter=',')
+        except FileNotFoundError:
+            print(f"Error: File {filename} not found")
+            continue
+        except ValueError as e:
+            print(f"Error: Could not parse {filename}: {e}")
+            continue
+        
+        fig = create_inflammation_plot(data)
+        
+        base_filename = filename.split('/')[-1].replace('.csv', '')
+        output_filename = f"{OUTPUT_DIR}{base_filename}{OUTPUT_EXT}"
+        fig.savefig(output_filename)
+        print(f"Saved plot to {output_filename}")
+
+
+if __name__ == '__main__':
+    process_files()
 ```
 
-So in this instance, we can see that there are a whole swathe of changes:
+It will also provide a list of changes made.
+As per the plan above:
 
-- Modularised the codebase by refactoring into four functions: use of a main function called from the top-level script, for loading a CSV file, generating a plot for a set of data, and processing a particular inflammation file
+- Constants have been defined at the top, removing hardcoded elements
+- Modularised the codebase by refactoring into two separate functions
 - Docstrings have been added for each of the functions and the module
-- The processing of the average, maximum and minimum values has been refactored into a loop iterating over a data structure
 - The subplots are generated within a loop using `zip()` to provide corresponding pairs of array elements into the loop.
 If we didn't like this particular style, we might use Edit mode on this segment to simplify it
 
 Note that it differs substantially from the version shown from a similar question made in Ask mode earlier,
-and whilst it is more modular,
-it's now 127 lines of code where before it was 32 lines - 
-we might consider this to be quite an over-engineered overkill.
+since LLMs are probablistic,
+but also more importantly because it was implemented based on a plan we refined.
+
+However - whilst it is more modular,
+it's now a lot larger whereas before it was 32 lines - 
+we might consider this to be quite an over-engineered overkill!
 
 ::::::::::::::::::::::::::::::::: callout
 
@@ -291,6 +502,21 @@ we're still able to undo these changes, e.g. either by selecting `Edit` and `Und
 or pressing `Ctrl + Z` (or `Cmd/Windows Key + Z`).
 We're also able to edit a previous prompt in the chat window,
 perhaps adding more specifics for what we want.
+
+## Summary
+
+In this episode we explored three ways GitHub Copilot can assist with refactoring code,
+each offering a different level of autonomy:
+
+- **Inline suggestions**, which provide lightweight, context-aware completions as you type — useful for small, targeted edits with immediate feedback.
+- **Agent mode**, which can apply changes across multiple lines or functions based on a single instruction — powerful for targeted refactoring, but requires careful review of the result.
+- **Plan mode**, that analyses your codebase and generates a structured, step-by-step refactoring plan *before* any changes are made — shifting development from ad-hoc to intentional, and giving you a reviewable document to refine and discuss before proceeding.
+
+A key theme throughout is the importance of **critical review**:
+as the autonomy and scope of AI assistance increases, so too must your scrutiny.
+AI-generated suggestions are a starting point, not a finished product,
+and whilst they increase productivity,
+you remain responsible for understanding and maintaining every change that goes into your codebase.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
