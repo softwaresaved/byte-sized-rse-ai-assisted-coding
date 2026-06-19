@@ -10,4 +10,11 @@ An intermediate-level practical course on integrating Artificial Intelligence (A
 
 At the end of this lesson, learners should be able to:
 
-- TODO
+- Describe how GitHub Copilot integrates with Microsoft Visual Studio Code and explain the different modes and models available.
+- Configure Copilot to protect privacy and intellectual property.
+- Use Copilot to explore and understand an existing codebase.
+- Construct effective prompts and manage context to improve AI-generated responses.
+- Use inline suggestions, plan mode, and agent mode to make targeted and larger-scale code changes.
+- Evaluate AI-generated suggestions critically, checking correctness, scope and maintainability.
+- Apply a responsible and incremental approach to AI-assisted development, matching the level of review to the level of autonomy.
+

@@ -28,22 +28,21 @@ exercises: 0
 
 ## Decide on Copilot Privacy Settings
 
-Within GitHub itself, since Copilot's VSCode configuration inherits from GitHub's configuration,
+Since Copilot's VSCode configuration inherits from GitHub's configuration,
 as a first step we can and should decide and configure a suitable level of privacy for how Copilot will operate;
 particularly if we are making use of sensitive or otherwise confidential data within our codebase.
 
-We can set this within our GitHub user settings, which will apply to all we do with Copilot:
+We can set this within our GitHub user settings, which will apply to all we do with Copilot.
+Using a browser, go to [github.com](github.com), and then:
 
-1. Select out GitHub profile icon at github.com, and select `Settings` and then `Copilot`
-1. Scroll down to `Privacy`:
+1. Select the GitHub profile icon at github.com, and select `Copilot Settings` from the drop down menu
+1. Scroll down to `Privacy`
 
-   ![Privacy settings within GitHub Copilot](fig/copilot-privacy.png)
-
-By default, in the free tier, the first two are enabled.
+By default, in the free tier, the two privacy options are enabled.
 
 In general, it's a good idea to disable `Suggestions matching public code` since the risk is that it may make use of public code sources in a way that isn't properly licensed.
-In addition, it's recommended to disable the other two (depending on the extent you trust GitHub and their affiliates),
-since - as it clearly states - they allow GitHub and others to use data and code snippets for product improvements.
+In addition, it's recommended to disable the other one (depending on the extent you trust GitHub and their affiliates),
+since - as it clearly states - it allows GitHub and others to use your data and code snippets for product improvements.
 
 ## Asking Questions about Your Code
 
@@ -64,32 +63,11 @@ but more of a guide to help build your own understanding of a codebase.
 
 Let's use Copilot to help us investigate how our existing codebase works.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## What Does the Patient Inflammation Data Contain?
-
-Each dataset file in `data/` records inflammation measurements from a separate clinical trial of the drug,
-and each dataset contains information for 60 patients,
-who had their inflammation levels recorded (in some arbitrary units of inflammation measurement) for 40 days whilst participating in the trial.
-
-These datasets are reused from the
-[Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/index.html).
-
-![](fig/inflammation-study-pipeline.png){alt='Snapshot of the inflammation dataset' .image-with-shadow width="800px" }
-
-Each of the data files uses the popular
-[comma-separated (CSV) format](https://en.wikipedia.org/wiki/Comma-separated_values)
-to represent the data, where:
-
-- each row holds inflammation measurements for a single patient
-- each column represents a successive day in the trial
-- each cell represents an inflammation reading on a given day for a patient
-  
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
 ### Using Copilot for the First Time
 
-Let's move over to using the VSCode pane on the right, labeled `Build with Agent`.
+Let's move over to using the VSCode chat pane on the right.
+If you don't see this, select `View` from the VSCode menu and then `Chat` to display it.
+
 You'll notice at the bottom there's a "chat" box,
 with a number of selectable dropdown options below it.
 You can hover over each one to discover what it is.
@@ -98,8 +76,8 @@ On the left, there's `Set Agent`, which allows you to set the mode of operation 
 Each of these modes provides an increasing degree of autonomy for Copilot to interact with your code:
 
 - `Ask` - designed for learning and orienting yourself with existing code without changing it.
-- `Agent` - proposes concrete code changes for your approval based on your instructions. It's useful when you already understand a codebase that you want to change.
-- `Plan` - the most powerful mode, which lets you specify a high-level prompt to allow Copilot at a high level of autonomy to plan changes in steps, select files, and run tools or terminal commands, iterating on code edits until it is complete.
+- `Plan` - will iterate on building a plan based on a prompt, exploring the codebase and creating a recommended plan containing step-by-step instructions for what to do. It won't by itself make any changes to your codebase.
+- `Agent` - the most powerful mode, which lets you specify a high-level prompt to allow Copilot at a high level of autonomy to plan changes in steps, select files, and run tools or terminal commands, iterating on code edits until it is complete.
 
 Since we want to ask questions regarding our codebase, let's set the mode to `Ask`.
 
@@ -157,6 +135,7 @@ using responses to simple questions to inform the next question, and so on.
 
 There's a very useful cheat sheet developed by Northwestern University (US) Research Computing and Data Services,
 which can be found in their [GitHub promptEngineering repository](https://github.com/nuitrcs/promptEngineering).
+It contains tips and do and don't examples to help you formulate good prompts.
 
 ::::::::::::::::::::::::::::::::: callout
 
@@ -184,7 +163,7 @@ and delete requests that are no longer relevant or otherwise not useful.
 Let's ask some questions about our codebase so we can understand the implementation,
 in terms of the used components and how they work.
 
-In the chat window, ensure that the `FIXME` model is selected:
+In the chat window, ensure that the `Claude Haiku 4.5` model is selected:
 
 ```
 What are the main packages used?
@@ -303,13 +282,20 @@ without instructions Copilot may suggest to:
 
 ### Create an Instructions File
 
-Let's create an instructions file now, by selecting the gear icon at the top right of the `CHAT` panel,
-and selecting `Generate Chat Instructions`.
+Let's create an instructions file now, by invoking a Copilot command in the chat window:
+
+```
+/create-instructions in a .github/copilot-instructions.md file. Use PEP8 for Python code style. Do not modify files in the data/ directory.
+```
+
+We specify the exact location where the instructions will live,
+since 
+
 At this point, VSCode will do a number of things in order to create this file:
 
 1. Analyse the structure and files in the workspace
 1. Analyse the data directory `data/` which contains our inflammation data files
-1. Create the `.github/.copilot-instructions.md` file itself
+1. Create the `.github/instructions/copilot-instructions.md` file itself
 1. Summarise the contents of the new instructions file
 1. Provide some questions for feedback to add more specific guidance in the instructions file
 
@@ -318,27 +304,25 @@ from which it can then ascertain the structure of the data,
 which you'll have to approve.
 We'll look at the contents of the file in a moment.
 
-You may also see and respond to some feedback questions, such as:
-
-```
-1. Should I add more detail about the other datasets (climate data, coordinates), or keep focus only on the inflammation data workflow?
-2. Are there specific Python version requirements or package versions that should be documented?
-3. Would you like guidance on handling edge cases (e.g., what happens with empty CSV files, missing columns)?
-```
+You may also see and need to respond to some feedback questions.
 
 ### Working with our Instructions File
 
-You should now see a `.github/copilot-instructions.md` file appear in VSCode's file browser.
+You should now see a `.github/copilot-instructions.md` file appear in VSCode's file browser,
+which should look something like [this one](../learners/files/copilot-instructions.md).
+
 If you open this file now, you'll see some things to note:
 
+- Perhaps some YAML "front matter" at the top, with a description and indicating it only applies to Python files
+(it may specify this information in another way however).
 - Content is highlighted with a `Keep / Undo` option.
 This is VSCode's way of highlighting the changes Copilot has made as suggestions,
 so that you explicitly review and approve them.
-- A summary of the main code entry point, the data source directory, and the overall workflow of the application
-- A section on the code patterns and conventions, essentially generalising how the code works and providing assumptions on how it operates, e.g. `axis=0 consistently means aggregate across rows (patients), preserving measurement dimensions`
-- Some suggestions on how to refactor (tidy) the codebase and otherwise enhancement it
+- Sections on code patterns and conventions to follow.
+- A section or other stipulation on not modifying the `data/` directory.
 
-Approve this file addition by selecting `Keep`.
+Approve this file addition by selecting `Keep`,
+and save the file.
 
 From this starting point we are free to update this file manually as we continue to develop the code,
 and this context will be used whenever we interact with Copilot.
@@ -373,9 +357,9 @@ since our quotas will be consumed more quickly with higher cost multipliers!
 
 5 mins.
 
-- Select `+` to create a new chat conversation
+- In the chat window, select `+` to create a new chat conversation.
 - Ensure you have the `Ask` mode selected in the chat box,
-and the `inflammation-plot.py` file open and selected in the code editor
+and the `inflammation-plot.py` file open and selected in the code editor.
 - Select the `Claude Haiku 4.5` model in the model dropdown.
 - Enter `How should I refactor this code to be more modular?` into the chat.
 
@@ -383,61 +367,92 @@ Don't update your code with any of the suggestions just yet!
 
 :::::::::::::::::::::::::: solution
 
-Note that at the top of the response, it mentions three references are used:
-
-- `copilot-instructions.md` - as we would expect
-- `inflammation-01.csv` - since it's pattern is referenced in the source code
-- `inflammation-plot.py` - since this is the file it's taken as context
-
 ```
-Your code can be made more readable by extracting the repetitive subplot pattern into a helper function and using a tuple/list to store the axes. Here's a refactored version:
+Looking at your code, I can see several opportunities to improve modularity. Here's a structured refactoring approach:
+
+1. Mixed concerns: File loading, figure creation, and plotting logic are all tangled together
+1. Difficult to test: Can't easily test individual plotting functions
+1. Hard to reuse: If you want to plot just mean or max, you'd need to refactor
+1. No separation of I/O: File operations aren't separated from business logic
+
+Here's how I'd reorganize it:
+
 ```
 
 ```python
-import glob
 
-import numpy as np
 from matplotlib import pyplot as plt
 
-def plot_statistics(axes, data, stat_func, label):
-    """Plot a single statistic on the given axes.
-    
-    Args:
-        axes: Matplotlib axes object
-        data: NumPy array of inflammation measurements
-        stat_func: Function to compute statistic (e.g., data.mean)
-        label: Y-axis label string
-    """
-    axes.set_ylabel(label)
-    axes.plot(stat_func(axis=0))
+def load_data(filename):
+    """Load inflammation data from CSV file."""
+    return np.loadtxt(fname=filename, delimiter=',')
 
-filenames = glob.glob('../data/inflammation-*.csv')
-filenames.sort()
-filenames = filenames[0:3]
-
-for filename in filenames:
-    print(filename)
-
-    data = np.loadtxt(fname=filename, delimiter=',')
-
+def create_figure_with_subplots():
+    """Create a figure with 3 subplots for inflammation plots."""
     fig = plt.figure(figsize=(10.0, 3.0))
-    axes = [fig.add_subplot(1, 3, i) for i in range(1, 4)]
+    axes = [
+        fig.add_subplot(1, 3, 1),
+        fig.add_subplot(1, 3, 2),
+        fig.add_subplot(1, 3, 3)
+    ]
+    return fig, axes
 
-    plot_statistics(axes[0], data, data.mean, 'average')
-    plot_statistics(axes[1], data, data.max, 'max')
-    plot_statistics(axes[2], data, data.min, 'min')
+def plot_inflammation_data(data, axes):
+    """Plot mean, max, and min inflammation data on provided axes."""
+    metrics = [
+        ('average', data.mean(axis=0)),
+        ('max', data.max(axis=0)),
+        ('min', data.min(axis=0))
+    ]
+    
+    for ax, (label, values) in zip(axes, metrics):
+        ax.set_ylabel(label)
+        ax.plot(values)
 
+def process_inflammation_file(filename, output_dir='.'):
+    """Process a single inflammation data file and save plot."""
+    data = load_data(filename)
+    fig, axes = create_figure_with_subplots()
+    
+    plot_inflammation_data(data, axes)
+    
     fig.tight_layout()
-    fig.savefig(filename + '.png')
+    output_filename = f"{output_dir}/{filename}.png"
+    fig.savefig(output_filename)
+    plt.close(fig)  # Clean up to avoid memory issues
+    
+    return output_filename
+
+def main():
+    """Main entry point."""
+    filenames = glob.glob('data/inflammation-*.csv')
+    filenames.sort()
+    
+    for filename in filenames:
+        print(filename)
+        output_file = process_inflammation_file(filename)
+        print(f"Saved: {output_file}")
+
+if __name__ == '__main__':
+    main()
 ```
 
 ```
-Key improvements:
+Benefits of This Refactoring
 
-- Helper function eliminates the three identical ylabel/plot blocks
-- List comprehension replaces axes1, axes2, axes3 variables
-- Docstring documents the function's purpose and parameters
-- Maintains all existing functionality and conventions from your codebase
+- Testability: each function can be unit tested independently
+- Reusability: can use plot_inflammation_data() with different data sources
+- Clarity: each function has a single, clear responsibility
+- Maintainability: changes to plot styling only affect plot_inflammation_data()
+- Extensibility: easy to add new metrics or change output format
+
+Further Improvements (Optional)
+
+- Configuration: Extract hardcoded values (figsize, delimiter) to a config dict
+- Error handling: Add try/except blocks around file I/O
+- Logging: Replace print() with proper logging
+- Type hints: Add Python type annotations for clarity
+- Output directory: Make output location configurable (I've added an optional parameter)
 ```
 
 :::::::::::::::::::::::::::::::::::

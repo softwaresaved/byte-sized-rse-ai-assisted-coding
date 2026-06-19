@@ -62,7 +62,7 @@ python3 -m pip install numpy matplotlib
 ## Examining the Repository
 
 Next, let's take a look at the contents of the repository by opening the repository directory within VSCode.
-You can do this in a couple of ways, either:
+After starting VSCode, you can do this in a couple of ways, either:
 
 1. Select the `Source control` icon from the middle of the icons on the left navigation bar. You should see an `Open Folder` option, so select that.
 1. Select the `File` option from the top menu bar, and select `Open Folder...`.
@@ -129,7 +129,8 @@ for filename in filenames:
     fig.savefig(filename + '.png')
 ```
 
-We'll be using this code example throughout the session.
+The aim will be to use GitHub Copilot within VSCode to improve this script throughout the session.
+
 Note that as an example, the code is deliberately written to have flaws.
 Things like the line spacing is inconsistent, there are no code comments, there's some code duplication, and you may spot other issues too.
 It's also deliberately been kept relatively simple.
@@ -193,6 +194,29 @@ In this case, you may need to configure VSCode accordingly:
 Hopefully that should resolve the issue.
 
 :::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## What Does the Patient Inflammation Data Contain?
+
+Each dataset file in `data/` records inflammation measurements from a separate clinical trial of the drug,
+and each dataset contains information for 60 patients,
+who had their inflammation levels recorded (in some arbitrary units of inflammation measurement) for 40 days whilst participating in the trial.
+
+These datasets are reused from the
+[Software Carpentry Python novice lesson](https://swcarpentry.github.io/python-novice-inflammation/index.html).
+
+![](fig/inflammation-study-pipeline.png){alt='Snapshot of the inflammation dataset' .image-with-shadow width="800px" }
+
+Each of the data files uses the popular
+[comma-separated (CSV) format](https://en.wikipedia.org/wiki/Comma-separated_values)
+to represent the data, where:
+
+- each row holds inflammation measurements for a single patient
+- each column represents a successive day in the trial
+- each cell represents an inflammation reading on a given day for a patient
+  
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
